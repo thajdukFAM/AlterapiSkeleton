@@ -9,7 +9,6 @@
             "email": "t.hajduk@funandmobile.com"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
         "silex/silex": "^1.3",
         "dflydev/doctrine-orm-service-provider": "~1.0",
