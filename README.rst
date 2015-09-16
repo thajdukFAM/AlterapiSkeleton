@@ -16,7 +16,7 @@ AlterApi Skeleton uses `Composer`_ to ease the creation of a new project:
 
 .. code-block:: console
 
-    $ composer create-project fabpot/silex-skeleton path/to/install
+    $ composer create-project kinetise/alterapi-skeleton path/to/install -s dev
 
 Composer will create for you a new project under path/to/install
 
