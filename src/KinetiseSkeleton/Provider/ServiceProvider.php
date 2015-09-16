@@ -3,6 +3,7 @@
 namespace KinetiseSkeleton\Provider;
 
 use KinetiseSkeleton\Controller\Api\CommentsController;
+use KinetiseSkeleton\Controller\Tutorial\IndexController;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 use Silex\ControllerCollection;
@@ -14,6 +15,10 @@ class ServiceProvider implements ServiceProviderInterface
     {
         $app['controllers.api.comments'] = $app->share(function() use ($app) {
             return new CommentsController($app);
+        });
+
+        $app['controllers.tutorial.index'] = $app->share(function() use ($app) {
+            return new IndexController($app);
         });
     }
 
@@ -46,6 +51,12 @@ class ServiceProvider implements ServiceProviderInterface
             ->post('/comments/{id}/delete', 'controllers.api.comments:deleteAction')
             ->assert('id', '\d+')
             ->bind('api_delete');
+
+        /** @var ControllerCollection $tutorial */
+        $tutorial = $app['controllers_factory'];
+        $app->mount('/tutorial', $tutorial);
+
+        $tutorial->get('/', 'controllers.tutorial.index:indexAction')->bind('tutorial_index');
     }
 
 }

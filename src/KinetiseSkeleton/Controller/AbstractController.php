@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-abstract class AbstractApiController
+abstract class AbstractController
 {
     /**
      * @var Application
@@ -49,5 +49,13 @@ abstract class AbstractApiController
     public function getUrlGenerator()
     {
         return $this->application['url_generator'];
+    }
+
+    /**
+     * @return \Twig_Environment
+     */
+    protected function getTwig()
+    {
+        return $this->application['twig'];
     }
 }

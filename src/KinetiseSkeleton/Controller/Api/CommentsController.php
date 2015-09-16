@@ -4,7 +4,7 @@ namespace KinetiseSkeleton\Controller\Api;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\SerializationContext;
-use KinetiseSkeleton\Controller\AbstractApiController;
+use KinetiseSkeleton\Controller\AbstractController;
 use KinetiseSkeleton\Doctrine\Entity\Comment;
 use KinetiseSkeleton\Response\MessageResponse;
 use KinetiseSkeleton\Response\Model\Rss;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class CommentsController extends AbstractApiController
+class CommentsController extends AbstractController
 {
     public function getAction()
     {

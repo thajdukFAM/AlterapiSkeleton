@@ -19,5 +19,9 @@
       }
     ]
   },
-  "monolog.logfile" : "%app.rootDir%/var/logs/prod.log"
+  "monolog.logfile" : "%app.rootDir%/var/logs/prod.log",
+  "twig.path" : "%app.rootDir%/templates",
+  "twig.options" : {
+    "cache" : "%app.rootDir%/var/cache/twig"
+  }
 }
