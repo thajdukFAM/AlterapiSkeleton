@@ -22,7 +22,7 @@ Composer will create for you a new project under path/to/install
 
 Next you need to setup a Apache Virtual host pointing to path/to/install/web
 
-.. code-block:: console
+.. code::
     <VirtualHost *:80>
         ServerName alterapi.skeleton.dev
 
@@ -66,13 +66,15 @@ Base backend collect logs and create some cache files. You need to create a dire
 
 Your apache user must have permissions to write files under "var" directory. After all navigate to:
 
-.. code-block:: console
+.. code::
     http://alterapi.skeleton.dev
 
 For more information you can browse tutorial included inside:
 
 .. code-block:: console
     http://alterapi.skeleton.dev/tutorial
+
+Enjoy!
 
 .. _Kinetise: https://www.kinetise.com/
 .. _Composer: http://getcomposer.org/
