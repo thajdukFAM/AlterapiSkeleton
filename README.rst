@@ -23,6 +23,7 @@ Composer will create for you a new project under path/to/install
 Next you need to setup a Apache Virtual host pointing to path/to/install/web
 
 .. code::
+
     <VirtualHost *:80>
         ServerName alterapi.skeleton.dev
 
@@ -61,17 +62,20 @@ Next you need to setup a Apache Virtual host pointing to path/to/install/web
 Base backend collect logs and create some cache files. You need to create a directories for logs and cache files:
 
 .. code-block:: console
+
     $ cd path/to/install
     $ mkdir -p var/{cache,logs}
 
 Your apache user must have permissions to write files under "var" directory. After all navigate to:
 
 .. code::
+
     http://alterapi.skeleton.dev
 
 For more information you can browse tutorial included inside:
 
 .. code-block:: console
+
     http://alterapi.skeleton.dev/tutorial
 
 Enjoy!
