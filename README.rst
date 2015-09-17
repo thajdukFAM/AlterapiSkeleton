@@ -66,11 +66,14 @@ Base backend collect logs and create some cache files. You need to create a dire
     $ cd path/to/install
     $ mkdir -p var/{cache,logs}
 
-Your apache user must have permissions to write files under "var" directory. After all navigate to:
+Your apache user must have permissions to write files under "var" directory.
+
+Last step is creating SQLite database:
 
 .. code::
 
-    http://alterapi.skeleton.dev
+    $ cd path/to/install
+    $ php app/console orm:schema-tool:create
 
 For more information you can browse tutorial included inside:
 

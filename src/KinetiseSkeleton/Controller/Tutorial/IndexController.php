@@ -4,13 +4,21 @@ namespace KinetiseSkeleton\Controller\Tutorial;
 
 use KinetiseSkeleton\Controller\AbstractController;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Response;
 
 class IndexController extends AbstractController
 {
-    public function indexAction()
+    public function indexAction($section = 'index')
     {
-        $app = $this->getApplication();
-
-        return $this->getTwig()->render('tutorial/index/index.html.twig');
+        try {
+            return $this->getTwig()->render(
+                sprintf('tutorial/index/%s.html.twig', $section)
+            );
+        } catch (\Exception $e) {
+            return new Response(
+                $this->getTwig()->render('error/notFound.html.twig'),
+                Response::HTTP_NOT_FOUND
+            );
+        }
     }
 }

@@ -50,13 +50,16 @@ class ServiceProvider implements ServiceProviderInterface
         $api
             ->post('/comments/{id}/delete', 'controllers.api.comments:deleteAction')
             ->assert('id', '\d+')
-            ->bind('api_delete');
+            ->bind('api_comment_delete');
 
         /** @var ControllerCollection $tutorial */
         $tutorial = $app['controllers_factory'];
         $app->mount('/tutorial', $tutorial);
 
-        $tutorial->get('/', 'controllers.tutorial.index:indexAction')->bind('tutorial_index');
+        $tutorial
+            ->get('/{section}', 'controllers.tutorial.index:indexAction')
+            ->value('section', 'index')
+            ->bind('tutorial_index');
     }
 
 }
