@@ -26,6 +26,24 @@
 }
     </pre>
 
+    <pre>
+/** path/to/install/app/config/prod.json **/
+
+{
+  // ..
+  "db.options" : {
+    "driver" : "pod_mysql",
+    "dbname" : "##",
+    "host" : "##",
+    "user" : "##",
+    "password" : "##",
+    "charset" : "##",
+    "port" : "##"
+  },
+  // ..
+}
+    </pre>
+
     <p>Replace <code>##</code> with correct values and create MySQL database.</p>
 
     <p>Update MySQL schema with mapping from entities.</p>
