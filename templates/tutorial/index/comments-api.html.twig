@@ -46,15 +46,20 @@
         <p>From kinetise POST data is sent as a json payload:</p>
         <pre>
 {
-    "items":[
-        {
-            "alterapicontext":null,
-            "form":{
-                "author":"John Doe",
-                "message":"Next comment"
-            }
-        }
-    ]
+  "form": {
+    "author":"John Doe",
+    "message":"Next comment"
+  }
+}
+        </pre>
+
+        <p>Example of bad request response body:</p>
+        <pre>
+{
+  "message": {
+    "title": "Error",
+    "description": "Bad Request"
+  }
 }
         </pre>
 
@@ -64,16 +69,17 @@
 
         <p>Example response body:</p>
         <pre>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;rss xmlns:k="http://kinetise.com"&gt;
-    &lt;channel&gt;
-        &lt;item k:context="1"&gt;
-            &lt;author&gt;&lt;![CDATA[John Doe]]&gt;&lt;/author&gt;
-            &lt;message&gt;&lt;![CDATA[Next comment]]&gt;&lt;/message&gt;
-            &lt;pub_date&gt;&lt;![CDATA[Wed, 16 Sep 2015 11:41:23 +0000]]&gt;&lt;/pub_date&gt;
-        &lt;/item&gt;
-    &lt;/channel&gt;
-&lt;/rss&gt;
+{
+  "results":
+    [
+      {
+        "id": 1,
+        "author": "John Doe",
+        "message": "Next comment",
+        "pub_date": "2016-02-23T13:40:17+01:00"
+      }
+    ]
+}
         </pre>
     </div>
 </div>
