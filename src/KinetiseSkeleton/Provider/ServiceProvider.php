@@ -32,10 +32,7 @@ class ServiceProvider implements ServiceProviderInterface
             if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
                 $data = json_decode($request->getContent(), true);
 
-                $request->request->set(
-                    '_json',
-                    $data ? $data : array()
-                );
+                $request->request->add($data ? $data : array());
             }
         });
 

@@ -2,12 +2,9 @@
 
 namespace KinetiseSkeleton\Controller\Api;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use JMS\Serializer\SerializationContext;
 use KinetiseSkeleton\Controller\AbstractController;
 use KinetiseSkeleton\Doctrine\Entity\Comment;
 use KinetiseSkeleton\Response\MessageResponse;
-use KinetiseSkeleton\Response\Model\Rss;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,15 +20,9 @@ class CommentsController extends AbstractController
             ->findAll();
 
         return new Response(
-            $this->getSerializer()->serialize(
-                new Rss(new ArrayCollection($comments)),
-                'xml',
-                SerializationContext::create()->setSerializeNull(true)
-            ),
+            json_encode(array("results" => json_decode($this->getSerializer()->serialize($comments, 'json')))),
             Response::HTTP_OK,
-            array(
-                'Content-Type' => 'application/xml; charset=utf-8'
-            )
+            array('Content-Type' => 'application/json; charset=utf-8')
         );
     }
 
@@ -43,40 +34,26 @@ class CommentsController extends AbstractController
         ;
 
         if (!$comment) {
-            return new MessageResponse('Comment not found!', array(), Response::HTTP_BAD_REQUEST, array(
-                'Content-Type' => 'application/xml, charset=UTF-8'
-            ));
+            return new MessageResponse('Error', 'Comment not found!', Response::HTTP_BAD_REQUEST);
         }
 
         return new Response(
-            $this->getSerializer()->serialize(
-                new Rss(new ArrayCollection(array($comment))),
-                'xml',
-                SerializationContext::create()->setSerializeNull(true)
-            ),
+            $this->getSerializer()->serialize($comment, 'json'),
             Response::HTTP_OK,
-            array(
-                'Content-Type' => 'application/xml; charset=utf-8'
-            )
+            array('Content-Type' => 'application/json; charset=utf-8')
         );
     }
 
     public function addAction(Request $request)
     {
-        $json = $request->request->get('_json', array());
+        $data = $request->request->get('form', false);
 
-        if (!array_key_exists('items', $json) || !array_key_exists('form', $json['items'][0])) {
-            return new MessageResponse('Bad Request', array(), Response::HTTP_BAD_REQUEST, array(
-                'Content-Type' => 'application/xml, charset=UTF-8'
-            ));
+        if (!$data) {
+            return new MessageResponse('Error', 'Bad Request', Response::HTTP_BAD_REQUEST);
         }
 
-        $data = $json['items'][0]['form'];
-
         if (!array_key_exists('author', $data) || !array_key_exists('message', $data)) {
-            return new MessageResponse('Data missing', array(), Response::HTTP_BAD_REQUEST, array(
-                'Content-Type' => 'application/xml, charset=UTF-8'
-            ));
+            return new MessageResponse('Error', 'Data missing', Response::HTTP_BAD_REQUEST);
         }
 
         $comment = new Comment();
@@ -87,14 +64,9 @@ class CommentsController extends AbstractController
         $this->getEntityManager()->flush();
 
         return new MessageResponse(
-            null,
-            array(
-                $this->getUrlGenerator()->generate('api_comments', array(), UrlGeneratorInterface::ABSOLUTE_URL)
-            ),
-            Response::HTTP_OK,
-            array(
-                'Content-Type' => 'application/xml, charset=UTF-8'
-            )
+            "Comment added",
+            $this->getUrlGenerator()->generate('api_comments', array(), UrlGeneratorInterface::ABSOLUTE_URL),
+            Response::HTTP_OK
         );
     }
 
@@ -105,23 +77,16 @@ class CommentsController extends AbstractController
         $comment = $em->find('KinetiseSkeleton\Doctrine\Entity\Comment', $id);
 
         if (!$comment) {
-            return new MessageResponse('Comment not found!', array(), Response::HTTP_BAD_REQUEST, array(
-                'Content-Type' => 'application/xml, charset=UTF-8'
-            ));
+            return new MessageResponse('Error', 'Comment not found!', Response::HTTP_BAD_REQUEST);
         }
 
         $em->remove($comment);
         $em->flush();
 
         return new MessageResponse(
-            null,
-            array(
-                $this->getUrlGenerator()->generate('api_comments', array(), UrlGeneratorInterface::ABSOLUTE_URL)
-            ),
-            Response::HTTP_OK,
-            array(
-                'Content-Type' => 'application/xml, charset=UTF-8'
-            )
+            "Comment deleted",
+            $this->getUrlGenerator()->generate('api_comments', array(), UrlGeneratorInterface::ABSOLUTE_URL),
+            Response::HTTP_OK
         );
     }
 }

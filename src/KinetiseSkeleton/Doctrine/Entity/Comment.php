@@ -22,6 +22,7 @@ class Comment
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Expose()
      */
     private $id;
 
@@ -42,22 +43,10 @@ class Comment
     /**
      * @var \DateTime
      * @ORM\Column(type="datetime", name="pub_date")
-     * @JMS\Type("DateTime<'D, d M Y H:i:s O'>")
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:sP'>")
      * @JMS\Expose()
      */
     private $pubDate;
-
-    /**
-     * @return array
-     * @JMS\XmlAttributeMap
-     * @JMS\VirtualProperty
-     */
-    public function getItemAttributes()
-    {
-        return array(
-            'k:context' => $this->id
-        );
-    }
 
     /**
      * @ORM\PrePersist
